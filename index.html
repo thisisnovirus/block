@@ -478,6 +478,8 @@ function keyDownFunc(e){
             x++;
         } else if(e.keyCode == 50){
             y++;
+        } else if(e.keyCode == 191){
+            rotateBlock();
         }
         if(hitCheck()){
             x = sx;
