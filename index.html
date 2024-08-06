@@ -11,21 +11,33 @@
 <div id="wrapper">
     <div id="box">
         <canvas id="canvas"></canvas>
-        <input inputmode="text">
+        <div lang="ja" class="container mt-2">
+<p>
+<input type="text" value="" placeholder="速度..." id="nameText" >
+
+
+</p>
+
+<p id="msg"></p>
         <div id="cover">
-            <h1><img src="img/block_game.png" width="240" height="120" alt="あの有名な落ちゲー！"></h1>
+            <h1><img src="logo.png" width="240" height="120" alt="あの有名な落ちゲー！"></h1>
             <p>ブロックの移動「矢印キー」</p>
             <p>ブロックの回転「スペースキー」</p>
             <p id="startBtn">Start</p>
         </div>
         <p id="totalLine">Line: <span>0</span></p>
+
         <p id="gameOver">GameOver!!</p>
     </div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="jquery.min.js"></script>
 
 <script>
+
+let nameText = document.getElementById('nameText');
+nameText.value = sessionStorage.getItem('name');
+
 
 // ステージの値
 let block_size = 24;
@@ -50,11 +62,11 @@ let wall = 9;
 let effect_animation = 2;
 
 // 色の設定
-let bg_color = "#fff";
+let bg_color = "#c7c7c7";
 let gameover_color = "#ccc";
 let block_color = "#07c";
 let lock_color = "#0ac";
-let wall_color = "#167";
+let wall_color = "#777777";
 let error_color = "#f00";
 let effect_color1 = "#fff";
 let effect_color2 = "#000";
@@ -440,7 +452,7 @@ function mainLoop(){
         speed--;
     }
     if(speed < 1) speed = 1;
-    timer = setTimeout(mainLoop, 1000/FPS);
+    timer = setTimeout(mainLoop, 1000/nameText.value);
 }
 
 // ゲーム開始の処理
@@ -486,6 +498,7 @@ function keyDownFunc(e){
             y = sy;
         }
         putBlock();
+        sessionStorage.setItem('name',nameText.value);
     }
 }
 
@@ -501,6 +514,7 @@ $('#startBtn').click(function(){
 // ゲームオーバーボタン
 $('#gameOver').click(function(){
     location.reload();
+    sessionStorage.setItem('name',nameText.value);
 });
 
 </script>
